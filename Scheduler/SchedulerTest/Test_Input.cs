@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Linq;
 using NUnit.Framework;
+using Newtonsoft.Json;
 
 namespace Scheduler.UnitTests
 {   
     [TestFixture()]
     public class Scheduler_TestInput
     {
-        public const string SINGLE_ELEMENT_TEST_FILE = "single_element_test.json";
-        public const string MULTI_ELEMENT_TEST_FILE = "multi_element_test.json";
+        private const string SINGLE_ELEMENT_TEST_FILE = "single_element_test.json";
+        private const string MULTI_ELEMENT_TEST_FILE = "multi_element_test.json";
 
         [SetUp()]
         public void Init()
-        { }
+        {
+        }
 
         [TearDown()]
         public void Cleanup()
@@ -35,21 +37,23 @@ namespace Scheduler.UnitTests
         [Test]
         public void SingleInputProject()
         {
-            Scheduler.Project testProject = new Scheduler.Project(
-                new DateTime(2015, 9, 1), new DateTime(2015, 9, 3), 
-                Scheduler.CityType.LowCost);
+            Project testProject = new Project("Project1",
+                new DateTime(2015, 9, 1), new DateTime(2015, 9, 3),
+                CityType.LowCost);
             var project = Scheduler.ReadInput(SINGLE_ELEMENT_TEST_FILE).First();
-            Assert.AreEqual(testProject, project)
+            Assert.AreEqual(JsonConvert.SerializeObject(testProject),
+                JsonConvert.SerializeObject(project));
         }
 
         [Test]
         public void MultiInputProject()
         {
-            Scheduler.Project testProject = new Scheduler.Project(
+            Project testProject = new Project("Project2",
                 new DateTime(2015, 9, 2), new DateTime(2015, 9, 6),
-                Scheduler.CityType.LowCost);
-            var project = Scheduler.ReadInput(SINGLE_ELEMENT_TEST_FILE).ElementAt(1);
-            Assert.AreEqual(testProject, project)
+                CityType.LowCost);
+            var project = Scheduler.ReadInput(MULTI_ELEMENT_TEST_FILE).ElementAt(1);
+            Assert.AreEqual(JsonConvert.SerializeObject(testProject),
+                JsonConvert.SerializeObject(project));
         }
     }
 }
