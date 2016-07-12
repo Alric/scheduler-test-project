@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "Project1",
+    "StartDate": "2015-09-01T00:00",
+    "EndDate": "2015-09-03T00:00",
+    "City": "LowCost"
+  },
+  {
+    "Name": "Project2",
+    "StartDate": "2015-09-04T00:00",
+    "EndDate": "2015-09-06T00:00",
+    "City": "LowCost"
+  },
+  {
+    "Name": "Project3",
+    "StartDate": "2015-09-06T00:00",
+    "EndDate": "2015-09-09T00:00",
+    "City": "HighCost"
+  }
+]
