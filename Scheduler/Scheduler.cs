@@ -21,5 +21,10 @@ namespace Scheduler
 
             return new List<Project>();
         }
+
+        public static int ComputeCost(string inputFile)
+        {
+            return 0;
+        }
     }
 }
