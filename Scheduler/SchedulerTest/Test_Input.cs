@@ -37,7 +37,7 @@ namespace Scheduler.UnitTests
         {
             Scheduler.Project testProject = new Scheduler.Project(
                 new DateTime(2015, 9, 1), new DateTime(2015, 9, 3), 
-                Scheduler.City.LowCost);
+                Scheduler.CityType.LowCost);
             var project = Scheduler.ReadInput(SINGLE_ELEMENT_TEST_FILE).First();
             Assert.AreEqual(testProject, project)
         }
@@ -47,7 +47,7 @@ namespace Scheduler.UnitTests
         {
             Scheduler.Project testProject = new Scheduler.Project(
                 new DateTime(2015, 9, 2), new DateTime(2015, 9, 6),
-                Scheduler.City.LowCost);
+                Scheduler.CityType.LowCost);
             var project = Scheduler.ReadInput(SINGLE_ELEMENT_TEST_FILE).ElementAt(1);
             Assert.AreEqual(testProject, project)
         }
