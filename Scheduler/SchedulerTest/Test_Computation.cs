@@ -25,21 +25,21 @@ namespace Scheduler.UnitTests
         public void SingleProjectComputation()
         {
             var cost = Scheduler.ComputeCost(SINGLE_ELEMENT_TEST_FILE);
-            Assert.AreEqual(cost, 165);
+            Assert.AreEqual(165, cost);
         }
 
         [Test]
         public void SeparateProjectComputation()
         {
             var cost = Scheduler.ComputeCost(SEPARATED_ELEMENT_TEST_FILE);
-            Assert.AreEqual(cost, 165 + 450);
+            Assert.AreEqual(165 + 450, cost);
         }
 
         [Test]
         public void OverlapProjectComputation()
         {
             var cost = Scheduler.ComputeCost(SEPARATED_ELEMENT_TEST_FILE);
-            Assert.AreEqual(cost, 165 + 430);
+            Assert.AreEqual(165 + 430, cost);
         }
         }
 }
