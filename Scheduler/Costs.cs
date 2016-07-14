@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Scheduler
 {
+    /// <summary>
+    /// A data container class for the cost of a city
+    /// Normally I'd use a struct here, but I didn't find it worthwhile
+    /// writing a custom JSON converter just for this
+    /// </summary>
     public class Costs
     {
-        //public CityType City { get; set; }
         public int Travel { get; set; }
         public int Full { get; set; }
     }
