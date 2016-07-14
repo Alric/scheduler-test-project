@@ -1,0 +1,12 @@
+[
+  {
+    "City": "LowCost",
+    "Travel": "45",
+    "Full": "75",
+  },
+  {
+    "City": "HighCost",
+    "Travel": "55",
+    "Full": "85",
+  },
+]

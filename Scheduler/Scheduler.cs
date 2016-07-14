@@ -8,6 +8,8 @@ namespace Scheduler
 {
     public static class Scheduler
     {
+        private const string COST_CONFIGURATION_FILE = "cost_configuration.json";
+
         public static List<Project> ReadInput(string filename)
         {
             string json;
@@ -22,8 +24,23 @@ namespace Scheduler
             return new List<Project>();
         }
 
+        private static List<Costs> LoadCostConfiguration()
+        {
+            string json;
+            using (StreamReader sr = new StreamReader(COST_CONFIGURATION_FILE))
+            {
+                json = sr.ReadToEnd();
+            }
+
+            if (!string.IsNullOrEmpty(json))
+                return JsonConvert.DeserializeObject<List<Costs>>(json);
+
+            return new List<Costs>();
+        }
+
         public static int ComputeCost(string inputFile)
         {
+            var costs = LoadCostConfiguration();
             var projects = ReadInput(inputFile).OrderBy(x => x.StartDate).ToList();
             List<DateTime> datesAccountedFor = new List<DateTime>();
             Func<DateTime, bool> IsMultiProjectDay = (date) =>
@@ -49,8 +66,8 @@ namespace Scheduler
                     var date = d.Key;
                     var cityType = projects.Where(p => p.StartDate <= date && p.EndDate >= date)
                         .OrderByDescending(p => (int)p.City).First().City;
-                    var travelCost = cityType == CityType.LowCost ? 45 : 55;
-                    var fullCost = cityType == CityType.LowCost ? 75 : 85;
+                    var travelCost = costs.First(c => c.City == cityType).Travel;
+                    var fullCost = costs.First(c => c.City == cityType).Full;
                     return total + (IsTravelDay(date) ? travelCost : fullCost);
                 });
             
