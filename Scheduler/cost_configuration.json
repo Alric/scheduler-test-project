@@ -1,12 +1,10 @@
-[
-  {
-    "City": "LowCost",
+{ 
+  "LowCost": {
     "Travel": "45",
-    "Full": "75",
+    "Full": "75"
   },
-  {
-    "City": "HighCost",
+  "HighCost": {
     "Travel": "55",
-    "Full": "85",
-  },
-]
+    "Full": "85"
+  }
+}

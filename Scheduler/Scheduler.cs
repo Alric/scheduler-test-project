@@ -18,13 +18,10 @@ namespace Scheduler
                 json = sr.ReadToEnd();
             }
 
-            if (!string.IsNullOrEmpty(json))
-                return JsonConvert.DeserializeObject<List<Project>>(json);
-
-            return new List<Project>();
+            return JsonConvert.DeserializeObject<List<Project>>(json);
         }
 
-        private static List<Costs> LoadCostConfiguration()
+        private static Dictionary<CityType,Costs> LoadCostConfiguration()
         {
             string json;
             using (StreamReader sr = new StreamReader(COST_CONFIGURATION_FILE))
@@ -32,10 +29,7 @@ namespace Scheduler
                 json = sr.ReadToEnd();
             }
 
-            if (!string.IsNullOrEmpty(json))
-                return JsonConvert.DeserializeObject<List<Costs>>(json);
-
-            return new List<Costs>();
+            return JsonConvert.DeserializeObject<Dictionary<CityType, Costs>>(json);
         }
 
         public static int ComputeCost(string inputFile)
@@ -66,8 +60,8 @@ namespace Scheduler
                     var date = d.Key;
                     var cityType = projects.Where(p => p.StartDate <= date && p.EndDate >= date)
                         .OrderByDescending(p => (int)p.City).First().City;
-                    var travelCost = costs.First(c => c.City == cityType).Travel;
-                    var fullCost = costs.First(c => c.City == cityType).Full;
+                    var travelCost = costs[cityType].Travel;
+                    var fullCost = costs[cityType].Full;
                     return total + (IsTravelDay(date) ? travelCost : fullCost);
                 });
             

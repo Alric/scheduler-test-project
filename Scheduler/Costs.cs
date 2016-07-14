@@ -8,7 +8,7 @@ namespace Scheduler
 {
     public class Costs
     {
-        public CityType City { get; set; }
+        //public CityType City { get; set; }
         public int Travel { get; set; }
         public int Full { get; set; }
     }
