@@ -36,8 +36,6 @@ namespace Scheduler
             };
             Func<DateTime, bool> HasEmptyNeighbor = (date) =>
             {
-                var result = !projects.Any(p => p.EndDate == date.AddDays(-1) || p.StartDate == date.AddDays(1));
-                //System.Diagnostics.Trace.WriteLine(date.ToString() + " empty neighbor? " + result.ToString());
                 return !projects.Any(p => p.EndDate == date.AddDays(-1) || p.StartDate == date.AddDays(1));
             };
             Func<DateTime, bool> IsTravelDay = (date) =>
@@ -49,7 +47,6 @@ namespace Scheduler
                 .Aggregate(0,(total, d) => 
                 {
                     var date = d.Key;
-                    System.Diagnostics.Trace.WriteLine(date.ToString() + " is the date");
                     var cityType = projects.Where(p => p.StartDate <= date && p.EndDate >= date)
                         .OrderByDescending(p => (int)p.City).First().City;
                     var travelCost = cityType == CityType.LowCost ? 45 : 55;
