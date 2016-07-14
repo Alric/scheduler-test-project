@@ -22,5 +22,11 @@ namespace Scheduler
             EndDate = endDate;
             City = city;
         }
+
+        public IEnumerable<DateTime> EachProjectDay()
+        {
+            for (var day = StartDate.Date; day.Date <= EndDate.Date; day = day.AddDays(1))
+                yield return day;
+        }
     }
 }
