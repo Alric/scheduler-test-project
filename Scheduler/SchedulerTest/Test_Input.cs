@@ -37,9 +37,11 @@ namespace Scheduler.UnitTests
         [Test]
         public void SingleInputProject()
         {
-            Project testProject = new Project("Project1",
-                new DateTime(2015, 9, 1), new DateTime(2015, 9, 3),
-                CityType.LowCost);
+            Project testProject = new Project();
+            testProject.Name = "Project1";
+            testProject.StartDate = new DateTime(2015, 9, 1);
+            testProject.EndDate = new DateTime(2015, 9, 3);
+            testProject.City = CityType.LowCost;
             var project = Scheduler.ReadInput(SINGLE_ELEMENT_TEST_FILE).First();
             Assert.AreEqual(JsonConvert.SerializeObject(testProject),
                 JsonConvert.SerializeObject(project));
@@ -48,9 +50,11 @@ namespace Scheduler.UnitTests
         [Test]
         public void MultiInputProject()
         {
-            Project testProject = new Project("Project2",
-                new DateTime(2015, 9, 2), new DateTime(2015, 9, 6),
-                CityType.LowCost);
+            Project testProject = new Project();
+            testProject.Name = "Project2";
+            testProject.StartDate = new DateTime(2015, 9, 2);
+            testProject.EndDate = new DateTime(2015, 9, 6);
+            testProject.City = CityType.LowCost;
             var project = Scheduler.ReadInput(MULTI_ELEMENT_TEST_FILE).ElementAt(1);
             Assert.AreEqual(JsonConvert.SerializeObject(testProject),
                 JsonConvert.SerializeObject(project));
