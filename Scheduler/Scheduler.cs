@@ -45,13 +45,24 @@ namespace Scheduler
             {
                 return projects.Any(p => p.StartDate < date && p.EndDate > date);
             };
-            Func<DateTime, bool> HasEmptyNeighbor = (date) =>
+            Func<DateTime, bool> HasNeighbor = (date) =>
             {
-                return !projects.Any(p => p.EndDate == date.AddDays(-1) || p.StartDate == date.AddDays(1));
+                bool result = false;
+                if (projects.Any(p => p.StartDate == date))
+                {
+                    // Determine if another project's end abuts against this start date
+                    result |= projects.Any(p => p.EndDate == date.AddDays(-1));
+                }
+                if (projects.Any(p => p.EndDate == date))
+                {
+                    // Determine if another project's start abuts against this end date
+                    result |= projects.Any(p => p.StartDate == date.AddDays(1));
+                }
+                return result;
             };
             Func<DateTime, bool> IsTravelDay = (date) =>
             {
-                return !IsMidProject(date) && HasEmptyNeighbor(date) && !IsMultiProjectDay(date);
+                return !IsMidProject(date) && !IsMultiProjectDay(date) && !HasNeighbor(date);
             };
             var cost = projects.SelectMany(p => p.EachProjectDay())
                 .GroupBy(d => d.Date)
