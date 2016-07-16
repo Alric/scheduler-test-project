@@ -59,6 +59,13 @@ NUnit is used for performing unit tests. A separate project, `SchedulerTest` is 
 ## Configuration
 
 A JSON file storing a configuration for each city is used to configure costs. In a practical application, these data would likely be in a largely-static database or other similar format. JSON was chosen here to reduce the package footprint for the codebase.
+
 ## Evaluation
 
 The evaluation sets will build with the solution and be stored in the `Sets` subdirectory. These consist of four JSON files, one for each exemplar problem. These exemplar problems have been validated against hand computation according to the given spec.
+
+## Architectural Decisions
+
+The `Costs` and `Project` classes are essentially data container classes. A standard object was used to simplify JSON serialization/deserialization without implementing custom converters, which is inappropriately complex for the scale of this project.
+
+Acceptable failure behavior w is not specificed, so rather than manage exceptions inside the static `Scheduler` class, exceptions are caught in `main` and an error message is output. The program will continue through all input cases, however.
